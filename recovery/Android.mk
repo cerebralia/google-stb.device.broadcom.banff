@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(filter banff,$(TARGET_DEVICE)),)
+ifneq ($(filter arrow,$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
@@ -22,7 +22,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := default_device.cpp
 
 # should match TARGET_RECOVERY_UI_LIB set in BoardConfig.mk
-LOCAL_MODULE := librecovery_ui_banff
+LOCAL_MODULE := librecovery_ui_arrow
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -32,7 +32,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := recovery_updater.c
 
 # should match TARGET_RECOVERY_UPDATER_LIBS set in BoardConfig.mk
-LOCAL_MODULE := librecovery_updater_banff
+LOCAL_MODULE := librecovery_updater_arrow
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -41,17 +41,15 @@ include $(CLEAR_VARS)
 NXMINI := $(call intermediates-dir-for,EXECUTABLES,nxmini)/nxmini
 
 EXTRA_SYSTEM_LIB_FILES := \
-   ${NEXUS_BIN_DIR}/bcmnexusfb.ko \
-   ${NEXUS_BIN_DIR}/nexus.ko
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko
 
 ifeq ($(SAGE_SUPPORT),y)
-SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
-SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
 EXTRA_SYSTEM_BIN_FILES := \
-   ${SAGE_BL_BINARY_PATH}/sage_bl.bin \
-   ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_os_app.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin \
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin \
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin \
+   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin
 endif
 
 define copy-recovery-extra-files
@@ -71,6 +69,6 @@ recovery_bcm_libs: $(NXMINI) \
 		$(EXTRA_SYSTEM_BIN_FILES)
 	$(hide) $(call copy-recovery-extra-files)
 
-out/target/product/banff/recovery.img : recovery_bcm_libs
+out/target/product/arrow/recovery.img : recovery_bcm_libs
 
 endif

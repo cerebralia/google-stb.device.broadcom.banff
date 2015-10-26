@@ -14,7 +14,13 @@
 # limitations under the License.
 #
 
-add_lunch_combo arrow-userdebug
-add_lunch_combo arrow-eng
-add_lunch_combo arrow-user
-add_lunch_combo aosp_arrow-userdebug
+export LOCAL_RUN_TARGET := aosp
+include device/google/arrow/arrow.mk
+
+PRODUCT_NAME := aosp_arrow
+PRODUCT_DEVICE := arrow
+PRODUCT_MANUFACTURER := Google
+PRODUCT_BRAND := Google
+
+# exporting toolchains path for kernel image+modules
+export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.4/bin:${PATH}

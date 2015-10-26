@@ -19,35 +19,69 @@
 #include "common.h"
 #include "device.h"
 #include "screen_ui.h"
-#include <cutils/properties.h>
 
-class BcmRecoveryUI : public ScreenRecoveryUI {
+static const char* HEADERS[] = { "Volume up/down to move highlight;",
+                                 "enter button to select.",
+                                 "",
+                                 NULL };
+
+static const char* ITEMS[] =  {"reboot system now",
+                               "apply update from ADB",
+                               "apply update from sdcard",
+                               "wipe data/factory reset",
+                               "wipe cache partition",
+                               "reboot to bootloader",
+                               "power down",
+                               NULL };
+
+class DefaultDevice : public Device {
   public:
-    virtual KeyAction CheckKey(int key, bool is_long_press) {
+    DefaultDevice() :
+        ui(new ScreenRecoveryUI) {
+    }
 
-        if (key == KEY_HOME) {
-            return TOGGLE;
+    RecoveryUI* GetUI() { return ui; }
+
+    int HandleMenuKey(int key, int visible) {
+        if (visible) {
+            switch (key) {
+              case KEY_DOWN:
+              case KEY_VOLUMEDOWN:
+                return kHighlightDown;
+
+              case KEY_UP:
+              case KEY_VOLUMEUP:
+                return kHighlightUp;
+
+              case KEY_ENTER:
+              case KEY_POWER:
+                return kInvokeItem;
+            }
         }
 
-        return RecoveryUI::CheckKey(key, is_long_press);
+        return kNoAction;
     }
 
-    void Init() override {
-        ScreenRecoveryUI::Init();
+    BuiltinAction InvokeMenuItem(int menu_position) {
+        switch (menu_position) {
+          case 0: return REBOOT;
+          case 1: return APPLY_ADB_SIDELOAD;
+          case 2: return APPLY_EXT;
+          case 3: return WIPE_DATA;
+          case 4: return WIPE_CACHE;
+          case 5: return REBOOT_BOOTLOADER;
+          case 6: return SHUTDOWN;
+          default: return NO_ACTION;
+        }
     }
+
+    const char* const* GetMenuHeaders() { return HEADERS; }
+    const char* const* GetMenuItems() { return ITEMS; }
+
+  private:
+    RecoveryUI* ui;
 };
 
 Device* make_device() {
-   char value[PROPERTY_VALUE_MAX];
-
-   for (;;) {
-      memset(value, 0, sizeof(value));
-      property_get("hw.nexus.platforminit", value, NULL);
-      if (strlen(value) && !strncmp(value, "on", strlen(value))) {
-         break;
-      }
-      sleep(1);
-   }
-
-   return new Device(new BcmRecoveryUI);
+    return new DefaultDevice();
 }
