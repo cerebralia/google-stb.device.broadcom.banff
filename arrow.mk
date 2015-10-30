@@ -71,8 +71,8 @@ PRODUCT_AAPT_CONFIG := normal large xlarge tvdpi hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.hardware=bcm_platform \
-    ro.product.board=bcm_platform
+    ro.hardware=arrow \
+    ro.product.board=arrow
 
 TARGET_CPU_SMP := true
 
@@ -82,7 +82,7 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.blockdev.rc:root/init.blockdev.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/arrow/init.eth.rc:root/init.eth.rc \
-    device/google/arrow/init.recovery.bcm_platform.rc:root/init.recovery.bcm_platform.rc \
+    device/google/arrow/init.recovery.bcm_platform.rc:root/init.recovery.arrow.rc \
     device/google/arrow/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/google/arrow/media_codecs.xml:system/etc/media_codecs.xml \
     device/google/arrow/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
@@ -100,11 +100,12 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.arrow \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.bcm_platform.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.arrow.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.tcp.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.bcm_platform.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.arrow.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html \
     ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
     ${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko:system/vendor/drivers/gator.ko
@@ -166,7 +167,7 @@ PRODUCT_PACKAGES += \
 # only for full image.
 ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
   PRODUCT_PACKAGES += \
-      audio.primary.bcm_platform \
+      audio.primary.arrow \
       audio.usb.default \
       audio.r_submix.default \
       audio.atvr.default \
@@ -176,13 +177,13 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmCoverFlow \
       BcmTVInput \
       BcmOtaUpdater \
-      camera.bcm_platform \
+      camera.arrow \
       Galaxy4 \
-      gralloc.bcm_platform \
-      hdmi_cec.bcm_platform \
+      gralloc.arrow \
+      hdmi_cec.arrow \
       HoloSpiralWallpaper \
       hwcbinder \
-      hwcomposer.bcm_platform \
+      hwcomposer.arrow \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
@@ -207,11 +208,11 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libplayreadypk_host \
       LiveWallpapers \
       LiveWallpapersPicker \
-      memtrack.bcm_platform \
-      power.bcm_platform \
+      memtrack.arrow \
+      power.arrow \
       pmlibserver \
       send_cec \
-      tv_input.bcm_platform \
+      tv_input.arrow \
       TV \
       MagicSmokeWallpapers \
       NoiseField \
