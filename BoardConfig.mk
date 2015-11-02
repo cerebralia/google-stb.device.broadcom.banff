@@ -134,7 +134,6 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     hwcbinder.te \
     init.te \
-    init_shell.te \
     kernel.te \
     keys.conf \
     mac_permissions.xml \
