@@ -24,7 +24,7 @@ export B_REFSW_USES_CLANG := n
 ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
 endif
-export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.8/bin
+export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
