@@ -20,14 +20,20 @@ export PLATFORM := 97439
 export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
 export B_REFSW_ARCH := arm-linux
+export B_REFSW_USES_CLANG := n
+ifeq ($(B_REFSW_USES_CLANG),y)
+   export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
+endif
 export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.8/bin
-export B_REFSW_CROSS_COMPILE := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
+export P_REFSW_CC := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
-export V3D_DEBUG ?= n
 
-# TODO - remove need for this.
-export BRCM_ANDROID_VERSION := l
+export B_REFSW_CCACHE := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
+export USE_CCACHE := 1
+
+export V3D_DEBUG ?= n
+export BDSP_MS10_SUPPORT ?= n
 
 export ANDROID_BUILD := y
 export BROADCOM_WIFI_CHIPSET := 43570a2
@@ -67,8 +73,10 @@ ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmpl
     export MSDRM_PRDY_SDK_VERSION=2.5
 endif
 
-export USE_CCACHE := 1
 export ANDROID_PRODUCT_OUT := arrow
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
 export V3D_VARIANT := vc5
 export NEXUS_KEYPAD_SUPPORT := n
+export BOLT_IMG_TO_USE_OVERRIDE :=
+export ANDROID_USES_BORINGSSL := y
+
