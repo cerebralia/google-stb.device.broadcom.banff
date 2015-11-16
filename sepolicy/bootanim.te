@@ -1,5 +1,3 @@
-allow bootanim device:sock_file write;
-
 allow bootanim nxserver:binder call;
 allow bootanim nxserver:unix_stream_socket connectto;
 allow bootanim nxserver_socket:sock_file write;
