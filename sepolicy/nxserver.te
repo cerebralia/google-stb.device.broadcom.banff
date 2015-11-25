@@ -40,3 +40,5 @@ allow nxserver readonlyfs:file { read open getattr};
 allow nxserver readonlyfs:dir search;
 allow nxserver hdmi_hpd_device:chr_file { read write open getattr ioctl };
 allow nxserver watchdog_device:chr_file rw_file_perms;
+allow nxserver self:capability { net_raw net_admin };
+
