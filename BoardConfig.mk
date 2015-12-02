@@ -164,5 +164,8 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 TARGET_BOARD_KERNEL_HEADERS := device/google/arrow/kernel-headers
 
+# set to 'true' for clang integration.
+USE_CLANG_PLATFORM_BUILD := false
+
 include device/google/arrow/bcm_refsw.mk
 
