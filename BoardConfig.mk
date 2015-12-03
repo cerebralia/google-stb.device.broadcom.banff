@@ -28,7 +28,7 @@ endif
 
 HAVE_HTC_AUDIO_DRIVER := true
 BOARD_USES_GENERIC_AUDIO := false
-TARGET_BOARD_PLATFORM := bcm_platform
+export TARGET_BOARD_PLATFORM := arrow
 HTTP_STACK := chrome
 JAVASCRIPT_ENGINE := v8
 JS_ENGINE := v8
@@ -42,7 +42,9 @@ USE_OPENGL_RENDERER := true
 ADDITIONAL_BUILD_PROPERTIES += \
    ro.ir_remote.mode=CirNec \
    ro.ir_remote.map=broadcom_silver \
-   ro.ir_remote.mask=0
+   ro.ir_remote.mask=0 \
+   ro.ir_remote.initial_timeout=55 \
+   ro.ir_remote.timeout=115
 
 ADDITIONAL_BUILD_PROPERTIES += \
    net.http.threads=25 \
@@ -79,7 +81,8 @@ BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.graphics_resolution.width=1920 \
     ro.graphics_resolution.height=1080 \
-    ro.sf.lcd_density=320
+    ro.sf.lcd_density=320 \
+    ro.v3d.fence.expose=true
 
 ifneq ($(TARGET_BUILD_PDK),true)
    ifeq ($(LOCAL_RUN_TARGET),)
@@ -104,8 +107,7 @@ BOARD_FLASH_BLOCK_SIZE := 512
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 
-BOARD_KERNEL_CMDLINE := androidboot.hardware=bcm_platform
-BOARD_KERNEL_CMDLINE += mem=2048M@0M bmem=512M@688M brcm_cma=848M@1200M
+BOARD_KERNEL_CMDLINE := mem=2040m@0m bmem=512m@800m brcm_cma=728m@1312m ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
@@ -132,7 +134,6 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     hwcbinder.te \
     init.te \
-    init_shell.te \
     kernel.te \
     keys.conf \
     mac_permissions.xml \
@@ -142,7 +143,6 @@ BOARD_SEPOLICY_UNION += \
     nxmini.te \
     nxserver.te \
     platform_app.te \
-    pmlibservice.te \
     property.te \
     property_contexts \
     recovery.te \
@@ -162,6 +162,9 @@ USE_CUSTOM_AUDIO_POLICY := 1
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 TARGET_BOARD_KERNEL_HEADERS := device/google/arrow/kernel-headers
+
+# set to 'true' for clang integration.
+USE_CLANG_PLATFORM_BUILD := true
 
 include device/google/arrow/bcm_refsw.mk
 
