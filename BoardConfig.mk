@@ -74,7 +74,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB       := lib_driver_cmd_bcmdhd
 # BTUSB
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/google/arrow/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/broadcom/arrow/bluetooth
 
 BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 
@@ -113,13 +113,13 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 TARGET_RECOVERY_UI_LIB := librecovery_ui_arrow
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_arrow
-TARGET_RELEASETOOLS_EXTENSIONS := device/google/arrow
+TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/arrow
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 TARGET_IS_AOSP := false
 
-BOARD_SEPOLICY_DIRS += device/google/arrow/sepolicy
-BOARD_SEPOLICY_DIRS += device/google/arrow/sepolicy-block
+BOARD_SEPOLICY_DIRS += device/broadcom/arrow/sepolicy
+BOARD_SEPOLICY_DIRS += device/broadcom/arrow/sepolicy-block
 
 # using legacy audio policy.
 USE_LEGACY_AUDIO_POLICY := 0
@@ -127,10 +127,10 @@ USE_CUSTOM_AUDIO_POLICY := 1
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-TARGET_BOARD_KERNEL_HEADERS := device/google/arrow/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/broadcom/arrow/kernel-headers
 
 # set to 'true' for clang integration.
 USE_CLANG_PLATFORM_BUILD := true
 
-include device/google/arrow/bcm_refsw.mk
+include device/broadcom/arrow/bcm_refsw.mk
 

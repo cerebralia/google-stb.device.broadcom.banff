@@ -15,7 +15,7 @@
 #
 
 export LOCAL_RUN_TARGET := aosp
-include device/google/arrow/arrow.mk
+include device/broadcom/arrow/arrow.mk
 
 PRODUCT_NAME := aosp_arrow
 PRODUCT_DEVICE := arrow

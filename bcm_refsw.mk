@@ -364,4 +364,4 @@ security_user :
 	cp -p $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto/liboemcrypto.a $(ANDROID_LINKER_SYSROOT)/usr/lib/liboemcrypto.a
 	@echo "'$@' completed"
 
-include device/google/arrow/bcmdhd.mk
+include device/broadcom/arrow/bcmdhd.mk
