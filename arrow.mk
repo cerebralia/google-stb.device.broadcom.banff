@@ -49,6 +49,7 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 endif
 
 include device/broadcom/arrow/settings.mk
+include device/broadcom/arrow/refsw_defs.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
