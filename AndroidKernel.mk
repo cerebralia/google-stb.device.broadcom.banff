@@ -45,16 +45,16 @@ KERNEL_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))/target/product/${ANDRO
 KERNEL_OUT_DIR_ABS := ${KERNEL_OUT_DIR}
 endif
 
-KERNEL_VER := zImage
+KERNEL_IMG := zImage
 
 .PHONY: build_kernel
 AUTOCONF := $(LINUX_OUT)/include/generated/autoconf.h
 build_kernel:
 	@echo "'$@' started"
-	mkdir -p $(LINUX_OUT)
 	-@if [ -f $(AUTOCONF) ]; then \
 		cp -pv $(AUTOCONF) $(AUTOCONF)_refsw; \
 	fi
+	mkdir -p ${LINUX_OUT}
 	rm -f $(LINUX_OUT)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT)/config_fragment
@@ -70,7 +70,7 @@ build_kernel:
 		fi; \
 		rm -f $(AUTOCONF)_refsw; \
 	fi
-	cp -pv $(LINUX_OUT)/arch/arm/boot/$(KERNEL_VER) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
 	@echo "'$@' completed"
 
 $(KERNEL_OUT_DIR)/kernel: build_kernel
@@ -84,3 +84,4 @@ clean_kernel: clean_drivers
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) distclean
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
 	rm -rf $(LINUX_OUT)
+

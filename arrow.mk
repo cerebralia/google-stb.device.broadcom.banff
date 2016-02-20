@@ -78,16 +78,19 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 TARGET_CPU_SMP := true
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.blockdev.rc:root/init.recovery.blockdev.rc \
+    ${NEXUS_BIN_DIR}/nexus.ko:system/vendor/drivers/nexus.ko \
+    ${NEXUS_BIN_DIR}/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    device/broadcom/arrow/bootanimation.zip:system/media/bootanimation.zip \
     device/broadcom/arrow/init.blockdev.rc:root/init.blockdev.rc \
+    device/broadcom/arrow/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/broadcom/arrow/init.eth.rc:root/init.eth.rc \
     device/broadcom/arrow/init.recovery.bcm_platform.rc:root/init.recovery.arrow.rc \
     device/broadcom/arrow/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/arrow/media_codecs.xml:system/etc/media_codecs.xml \
+    device/broadcom/arrow/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/broadcom/arrow/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     device/broadcom/arrow/audio_policy_btusb.conf:system/etc/audio_policy.conf \
+    device/broadcom/arrow/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
@@ -108,30 +111,28 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.tcp.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.arrow.rc \
-    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
-    ${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko:system/vendor/drivers/gator.ko
-
-ifneq ($(wildcard device/google/atv/permissions/tv_core_hardware.xml),)
-  PRODUCT_COPY_FILES += \
-      device/broadcom/arrow/bootanimation.zip:system/media/bootanimation.zip
-endif
+    ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
+    ${NEXUS_BIN_DIR}/gator.ko:system/vendor/drivers/gator.ko
 
 ifeq ($(SAGE_SUPPORT),y)
-  PRODUCT_COPY_FILES += \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin:system/bin/sage_bl.bin \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin:system/bin/sage_os_app.bin \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
+SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
+PRODUCT_COPY_FILES += \
+    ${SAGE_BL_BINARY_PATH}/sage_bl.bin:system/bin/sage_bl.bin \
+    ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_os_app.bin:system/bin/sage_os_app.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.zygote.disable_gl_preload=true \
-    sys.display-size=1920x1080
+    sys.display-size=1920x1080 \
+    persist.sys.hdmi.keep_awake=false
 
 # GMS package integration.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-acme
+    ro.com.google.clientidbase=android-arrow
 
 # nx configuration.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -150,6 +151,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.capable.cb=1 \
     ro.v3d.fence.expose=true \
     ro.nx.svp=1
+
+# This provides the build id of the reference platform that the current build
+# is based on. Do not remove this line.
+$(call inherit-product, device/broadcom/arrow/reference_build.mk)
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
@@ -178,8 +183,10 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libaudiopolicymanager \
       BcmAdjustScreenOffset \
       BcmCoverFlow \
+      BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
+      BcmKeyInterceptor \
       camera.arrow \
       Galaxy4 \
       gralloc.arrow \
@@ -239,11 +246,11 @@ PRODUCT_NAME := arrow
 PRODUCT_DEVICE := arrow
 PRODUCT_MODEL := arrow
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Google
+PRODUCT_MANUFACTURER := google
+PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.4/bin:${PATH}
+export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.5/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
@@ -263,14 +270,14 @@ PRODUCT_PACKAGES += \
 
 # This makefile copies the prebuilt wifi driver module and corresponding firmware and configuration files
 BRCM_DHD_DRIVER_TARGETS := \
-	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx \
-	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt \
-	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko
+	${B_DHD_OBJ_ROOT}/fw.bin.trx \
+	${B_DHD_OBJ_ROOT}/nvm.txt \
+	${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx:system/vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
+    ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
+    ${B_DHD_OBJ_ROOT}/fw.bin.trx:system/vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
+    ${B_DHD_OBJ_ROOT}/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
@@ -285,7 +292,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant
 
 PRODUCT_PROPERTY_OVERRIDES += \
-   wifi.interface=wlan0
+   wifi.interface=wlan0 \
+   ro.nrdp.modelgroup=arrow
 
 $(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
 	@echo "'brcm_dhd_driver' target: $@"
