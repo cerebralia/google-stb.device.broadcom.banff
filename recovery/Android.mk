@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(filter arrow,$(TARGET_DEVICE)),)
+ifneq ($(filter banff,$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
@@ -22,7 +22,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := default_device.cpp
 
 # should match TARGET_RECOVERY_UI_LIB set in BoardConfig.mk
-LOCAL_MODULE := librecovery_ui_arrow
+LOCAL_MODULE := librecovery_ui_banff
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -32,7 +32,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := recovery_updater.c
 
 # should match TARGET_RECOVERY_UPDATER_LIBS set in BoardConfig.mk
-LOCAL_MODULE := librecovery_updater_arrow
+LOCAL_MODULE := librecovery_updater_banff
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -71,6 +71,6 @@ recovery_bcm_libs: $(NXMINI) \
 		$(EXTRA_SYSTEM_BIN_FILES)
 	$(hide) $(call copy-recovery-extra-files)
 
-out/target/product/arrow/recovery.img : recovery_bcm_libs
+out/target/product/banff/recovery.img : recovery_bcm_libs
 
 endif

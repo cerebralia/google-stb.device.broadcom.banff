@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-add_lunch_combo arrow-userdebug
-add_lunch_combo arrow-eng
-add_lunch_combo arrow-user
-add_lunch_combo aosp_arrow-userdebug
+add_lunch_combo banff-userdebug
+add_lunch_combo banff-eng
+add_lunch_combo banff-user
+add_lunch_combo aosp_banff-userdebug

@@ -20,7 +20,8 @@ export PLATFORM := 97439
 export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
 export B_REFSW_ARCH := arm-linux
-export B_REFSW_USES_CLANG := y
+export B_REFSW_ARCH_1ST_ARCH := ${B_REFSW_ARCH}
+export B_REFSW_USES_CLANG := n
 ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
 endif
@@ -39,7 +40,7 @@ export ANDROID_BUILD := y
 export BROADCOM_WIFI_CHIPSET := 43570a2
 export BRCM_DHD_NVRAM_NAME := bcm43570_7251SSFF2.nvm
 export BROADCOM_DHD_SOURCE_PATH := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
-export BCM_GPT_CONFIG_FILE := device/broadcom/arrow/makegpt.conf
+export BCM_GPT_CONFIG_FILE := device/broadcom/banff/makegpt.conf
 export HLS_PROTOCOL_SUPPORT := y
 export LINUX := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux
 export NEXUS_ANDROID_SUPPORT := y
@@ -68,7 +69,7 @@ export SAGE_SECURE_MODE := 5
 export MSDRM_PRDY_SUPPORT=y
 export MSDRM_PRDY_SDK_VERSION=2.5
 
-export ANDROID_PRODUCT_OUT := arrow
+export ANDROID_PRODUCT_OUT := banff
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
 export V3D_VARIANT := vc5
 export NEXUS_KEYPAD_SUPPORT := n

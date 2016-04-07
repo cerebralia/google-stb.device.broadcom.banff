@@ -34,12 +34,12 @@ ifeq (,$(LOCAL_RUN_TARGET))
     $(call inherit-product, $(TOPDIR)device/google/atv/products/atv_base.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-    PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/arrow/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+    PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   endif
 endif
 # aosp - inherit from AOSP-BASE, not ATV.
 ifeq ($(LOCAL_RUN_TARGET),aosp)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/arrow/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
 $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
@@ -48,8 +48,12 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
   override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 endif
 
-include device/broadcom/arrow/settings.mk
-include device/broadcom/arrow/refsw_defs.mk
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
+include device/broadcom/banff/settings.mk
+include device/broadcom/banff/refsw_defs.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
@@ -62,39 +66,41 @@ endif
 ifneq ($(wildcard device/google/atv/permissions/tv_core_hardware.xml),)
   # purposefully swap overlay layout to override some settings from
   # the ATV setup.
-  DEVICE_PACKAGE_OVERLAYS := device/broadcom/arrow/overlay
+  DEVICE_PACKAGE_OVERLAYS := device/broadcom/banff/overlay
   DEVICE_PACKAGE_OVERLAYS += device/google/atv/overlay
 else
-  DEVICE_PACKAGE_OVERLAYS += device/broadcom/arrow/overlay
+  DEVICE_PACKAGE_OVERLAYS += device/broadcom/banff/overlay
 endif
 
 PRODUCT_AAPT_CONFIG := normal large xlarge tvdpi hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.hardware=arrow \
-    ro.product.board=arrow
+    ro.hardware=banff \
+    ro.product.board=banff
 
 TARGET_CPU_SMP := true
 
 PRODUCT_COPY_FILES += \
     ${NEXUS_BIN_DIR}/nexus.ko:system/vendor/drivers/nexus.ko \
     ${NEXUS_BIN_DIR}/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
-    device/broadcom/arrow/bootanimation.zip:system/media/bootanimation.zip \
-    device/broadcom/arrow/init.blockdev.rc:root/init.blockdev.rc \
-    device/broadcom/arrow/init.blockdev.rc:root/init.recovery.blockdev.rc \
-    device/broadcom/arrow/init.eth.rc:root/init.eth.rc \
-    device/broadcom/arrow/init.recovery.bcm_platform.rc:root/init.recovery.arrow.rc \
-    device/broadcom/arrow/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
-    device/broadcom/arrow/media_codecs.xml:system/etc/media_codecs.xml \
-    device/broadcom/arrow/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    device/broadcom/arrow/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
-    device/broadcom/arrow/audio_policy_btusb.conf:system/etc/audio_policy.conf \
-    device/broadcom/arrow/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
+    device/broadcom/banff/bootanimation.zip:system/media/bootanimation.zip \
+    device/broadcom/banff/init.blockdev.rc:root/init.blockdev.rc \
+    device/broadcom/banff/init.blockdev.rc:root/init.recovery.blockdev.rc \
+    device/broadcom/banff/init.eth.rc:root/init.eth.rc \
+    device/broadcom/banff/init.recovery.bcm_platform.rc:root/init.recovery.banff.rc \
+    device/broadcom/banff/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
+    device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
+    device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
+    device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
+    device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    device/broadcom/banff/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
+    device/broadcom/banff/audio_policy_btusb.conf:system/etc/audio_policy.conf \
+    device/broadcom/banff/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
-    device/broadcom/arrow/webview-command-line:/data/local/tmp/webview-command-line \
+    device/broadcom/banff/webview-command-line:/data/local/tmp/webview-command-line \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml \
@@ -105,12 +111,12 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.bcm_platform \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.arrow \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.banff \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.arrow.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.banff.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.tcp.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.arrow.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.banff.rc \
     ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
     ${NEXUS_BIN_DIR}/gator.ko:system/vendor/drivers/gator.ko
 
@@ -132,7 +138,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # GMS package integration.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-arrow
+    ro.com.google.clientidbase=android-banff
 
 # nx configuration.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -154,19 +160,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
-$(call inherit-product, device/broadcom/arrow/reference_build.mk)
+$(call inherit-product, device/broadcom/banff/reference_build.mk)
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
     busybox \
     dhcpcd.conf \
-    ethtool \
     e2fsck \
     gatord \
     gptbin \
+    hfrvideo \
     makehwcfg \
-    network \
+    netcoal \
     nxdispfmt \
     nxserver \
     nxlogger \
@@ -175,7 +181,7 @@ PRODUCT_PACKAGES += \
 # only for full image.
 ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
   PRODUCT_PACKAGES += \
-      audio.primary.arrow \
+      audio.primary.banff \
       audio.usb.default \
       audio.r_submix.default \
       audio.atvr.default \
@@ -187,18 +193,16 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmTVInput \
       BcmOtaUpdater \
       BcmKeyInterceptor \
-      camera.arrow \
+      camera.banff \
       Galaxy4 \
-      gralloc.arrow \
-      hdmi_cec.arrow \
+      gralloc.banff \
+      hdmi_cec.banff \
       HoloSpiralWallpaper \
       hwcbinder \
-      hwcomposer.arrow \
+      hwcomposer.banff \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
-      libjni_changedisplayformat \
-      libjni_generalSTBFunctions \
       libGLES_nexus \
       libnexusir \
       libpmlibservice \
@@ -210,30 +214,18 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libcmndrm \
       libcmndrm_tl \
       libsrai \
-      libOMX.BCM.h264.decoder.secure \
       liboemcrypto \
       libwvdrmengine \
       libcmndrmprdy \
       libplayreadydrmplugin \
       libplayreadypk_host \
-      LiveWallpapers \
-      LiveWallpapersPicker \
-      memtrack.arrow \
-      power.arrow \
+     memtrack.banff \
+      power.banff \
       pmlibserver \
       send_cec \
-      tv_input.arrow \
+      tv_input.banff \
       TV \
-      MagicSmokeWallpapers \
-      NoiseField \
-      PhaseBeam \
-      TvProvider \
-      VisualizationWallpapers
-
-  ifneq ($(TARGET_BUILD_VARIANT),user)
-    PRODUCT_PACKAGES += \
-	ExoPlayerDemo
-  endif
+      TvProvider
 
   PRODUCT_PROPERTY_OVERRIDES += drm.service.enabled=true
 endif
@@ -241,9 +233,9 @@ endif
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
 
 
-PRODUCT_NAME := arrow
-PRODUCT_DEVICE := arrow
-PRODUCT_MODEL := arrow
+PRODUCT_NAME := banff
+PRODUCT_DEVICE := banff
+PRODUCT_MODEL := banff
 PRODUCT_CHARACTERISTICS := tv
 PRODUCT_MANUFACTURER := google
 PRODUCT_BRAND := google
@@ -292,7 +284,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
    wifi.interface=wlan0 \
-   ro.nrdp.modelgroup=arrow
-
-$(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
-	@echo "'brcm_dhd_driver' target: $@"
+   ro.nrdp.modelgroup=BANFF

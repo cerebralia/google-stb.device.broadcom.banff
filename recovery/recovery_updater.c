@@ -140,7 +140,7 @@ static int write_bolt_emmc(void *data, unsigned size) {
     return write_raw_image(data, size, boot_partition);
 }
 
-Value* FlashBoltArrowFn(const char *name, State *state, int argc, Expr * argv[]) {
+Value* FlashBoltBanffFn(const char *name, State *state, int argc, Expr * argv[]) {
 
     Value *ret = NULL;
     char *filename = NULL;
@@ -199,7 +199,7 @@ done:
     return ret;
 }
 
-Value* FlashGPTArrowFn(const char *name, State *state, int argc, Expr * argv[]) {
+Value* FlashGPTBanffFn(const char *name, State *state, int argc, Expr * argv[]) {
 
     Value *ret = NULL;
     char *filename = NULL;
@@ -258,10 +258,10 @@ done:
     return ret;
 }
 
-void Register_librecovery_updater_arrow() {
+void Register_librecovery_updater_banff() {
 
-    fprintf(stderr, "installing arrow updater extensions\n");
+    fprintf(stderr, "installing banff updater extensions\n");
 
-    RegisterFunction("arrow.flash_bolt", FlashBoltArrowFn);
-    RegisterFunction("arrow.flash_gpt", FlashGPTArrowFn);
+    RegisterFunction("banff.flash_bolt", FlashBoltBanffFn);
+    RegisterFunction("banff.flash_gpt", FlashGPTBanffFn);
 }

@@ -15,10 +15,10 @@
 #
 
 export LOCAL_RUN_TARGET := aosp
-include device/broadcom/arrow/arrow.mk
+include device/broadcom/banff/banff.mk
 
-PRODUCT_NAME := aosp_arrow
-PRODUCT_DEVICE := arrow
+PRODUCT_NAME := aosp_banff
+PRODUCT_DEVICE := banff
 PRODUCT_MANUFACTURER := Google
 PRODUCT_BRAND := Google
 
