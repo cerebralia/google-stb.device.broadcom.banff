@@ -114,7 +114,7 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.banff \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.banff.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.tcp.rc:root/init.bcm_platform.usb.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.banff.rc \
     ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
