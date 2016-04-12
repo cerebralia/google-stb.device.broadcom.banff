@@ -14,12 +14,6 @@
 # limitations under the License.
 #
 
-# It is required to build the Kernel from source.
-KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux
-ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
-  $(error Unable to build kernel from source, aborting.)
-endif
-
 # To prevent from including GMS twice in Google's internal source.
 ifeq ($(wildcard vendor/google/prebuilt),)
 PRODUCT_USE_PREBUILT_GMS := yes
@@ -52,6 +46,12 @@ endif
 
 include device/broadcom/banff/settings.mk
 include device/broadcom/banff/refsw_defs.mk
+
+# It is required to build the Kernel from source.
+KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux-${LOCAL_LINUX_VERSION}
+ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
+  $(error Unable to build kernel from source, aborting.)
+endif
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
