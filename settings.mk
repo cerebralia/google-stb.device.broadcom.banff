@@ -10,7 +10,7 @@
 #
 #export OUT_DIR_COMMON_BASE=
 
-export BCM_VENDOR_STB_ROOT ?= vendor/broadcom/stb
+export BCM_VENDOR_STB_ROOT ?= vendor/broadcom
 
 export NEXUS_PLATFORM := 97439
 export BCHP_VER := B0
@@ -20,11 +20,12 @@ export PLATFORM := 97439
 export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
 export B_REFSW_ARCH := arm-linux
-export B_REFSW_USES_CLANG := y
+export B_REFSW_ARCH_1ST_ARCH := ${B_REFSW_ARCH}
+export B_REFSW_USES_CLANG := n
 ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
 endif
-export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.8/bin
+export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
@@ -39,11 +40,10 @@ export ANDROID_BUILD := y
 export BROADCOM_WIFI_CHIPSET := 43570a2
 export BRCM_DHD_NVRAM_NAME := bcm43570_7251SSFF2.nvm
 export BROADCOM_DHD_SOURCE_PATH := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
-export BCM_GPT_CONFIG_FILE := device/google/arrow/makegpt.conf
+export BCM_GPT_CONFIG_FILE := device/broadcom/banff/makegpt.conf
 export HLS_PROTOCOL_SUPPORT := y
-export LINUXVER := 3.14.13
-export LINUX := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux
-export BCHP_VER_LOWER_LINUX_OVERRIDE :=
+export LOCAL_LINUX_VERSION ?= 3.14
+export LINUX := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux-${LOCAL_LINUX_VERSION}
 export NEXUS_ANDROID_SUPPORT := y
 export NEXUS_MODE := proxy
 export NEXUS_LOGGER_EXTERNAL := y
@@ -67,16 +67,14 @@ export NEXUS_COMMON_CRYPTO_SUPPORT=y
 export NEXUS_HDCP_SUPPORT=y
 export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
 export SAGE_SECURE_MODE := 5
+export MSDRM_PRDY_SUPPORT=y
+export MSDRM_PRDY_SDK_VERSION=2.5
 
-ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmplugin),)
-    export MSDRM_PRDY_SUPPORT=y
-    export MSDRM_PRDY_SDK_VERSION=2.5
-endif
-
-export ANDROID_PRODUCT_OUT := arrow
+export ANDROID_PRODUCT_OUT := banff
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
 export V3D_VARIANT := vc5
 export NEXUS_KEYPAD_SUPPORT := n
 export BOLT_IMG_TO_USE_OVERRIDE :=
 export ANDROID_USES_BORINGSSL := y
+export NEXUS_HDMI_INPUT_SUPPORT := y
 
