@@ -42,14 +42,12 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  # Build WebView from source when using the internal source.
-  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
-endif
+
+# Build WebView from source when using the internal source.
+override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
 include device/broadcom/banff/settings.mk
@@ -92,11 +90,11 @@ PRODUCT_COPY_FILES += \
     device/broadcom/banff/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
-    device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/broadcom/banff/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     device/broadcom/banff/audio_policy_btusb.conf:system/etc/audio_policy.conf \
     device/broadcom/banff/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
+    device/broadcom/banff/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
@@ -110,8 +108,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.bcm_platform \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.banff \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.banff.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
@@ -119,6 +115,16 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.banff.rc \
     ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
     ${NEXUS_BIN_DIR}/gator.ko:system/vendor/drivers/gator.ko
+
+ifeq ($(EXPERIMENTAL_SQUASHFS),wanted)
+PRODUCT_COPY_FILES += \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.squashfs:root/fstab.bcm_platform \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.squashfs:root/fstab.banff
+else
+PRODUCT_COPY_FILES += \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.bcm_platform \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.banff
+endif
 
 ifeq ($(SAGE_SUPPORT),y)
 SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
@@ -170,7 +176,6 @@ PRODUCT_PACKAGES += \
     e2fsck \
     gatord \
     gptbin \
-    hfrvideo \
     makehwcfg \
     netcoal \
     nxdispfmt \
@@ -194,10 +199,8 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmOtaUpdater \
       BcmKeyInterceptor \
       camera.banff \
-      Galaxy4 \
       gralloc.banff \
       hdmi_cec.banff \
-      HoloSpiralWallpaper \
       hwcbinder \
       hwcomposer.banff \
       libhwcbinder \
@@ -219,7 +222,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libcmndrmprdy \
       libplayreadydrmplugin \
       libplayreadypk_host \
-     memtrack.banff \
+      memtrack.banff \
       power.banff \
       pmlibserver \
       send_cec \
@@ -232,16 +235,15 @@ endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
 
-
 PRODUCT_NAME := banff
 PRODUCT_DEVICE := banff
 PRODUCT_MODEL := banff
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := google
+PRODUCT_MANUFACTURER := broadcom
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.5/bin:${PATH}
+export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
@@ -254,7 +256,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd
+   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM_bt_fw.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default
