@@ -36,12 +36,14 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-
-# Build WebView from source when using the internal source.
-override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+  # Build WebView from source when using the internal source.
+  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
+endif
 
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/google_aware.xml:system/etc/permissions/google_aware.xml
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
 include device/broadcom/banff/settings.mk
@@ -87,6 +89,7 @@ PRODUCT_COPY_FILES += \
     device/broadcom/banff/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/broadcom/banff/init.eth.rc:root/init.eth.rc \
     device/broadcom/banff/init.recovery.bcm_platform.rc:root/init.recovery.banff.rc \
+    device/broadcom/banff/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
     device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
@@ -161,7 +164,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.use.alt=150m \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
-    ro.nx.capable.si=1 \
     ro.v3d.fence.expose=true \
     ro.nx.svp=1
 
@@ -236,15 +238,16 @@ endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
 
+
 PRODUCT_NAME := banff
 PRODUCT_DEVICE := banff
 PRODUCT_MODEL := banff
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := broadcom
+PRODUCT_MANUFACTURER := google
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
+export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.5/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
@@ -257,7 +260,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM_bt_fw.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM_bt_fw.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default
@@ -274,6 +277,7 @@ PRODUCT_COPY_FILES += \
     ${B_DHD_OBJ_ROOT}/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
