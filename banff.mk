@@ -177,6 +177,7 @@ PRODUCT_PACKAGES += \
     e2fsck \
     gatord \
     gptbin \
+    hfrvideo \
     makehwcfg \
     netcoal \
     nxdispfmt \
