@@ -43,7 +43,7 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 endif
 
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
 include device/broadcom/banff/settings.mk
