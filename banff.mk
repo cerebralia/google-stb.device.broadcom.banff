@@ -177,8 +177,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.use.alt=150m \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
-    ro.v3d.fence.expose=true \
-    ro.nx.svp=1
+    ro.nx.capable.si=1 \
+    ro.v3d.fence.expose=true
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
@@ -290,7 +290,6 @@ PRODUCT_COPY_FILES += \
     ${B_DHD_OBJ_ROOT}/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
