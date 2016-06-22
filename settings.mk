@@ -77,3 +77,5 @@ export BOLT_IMG_TO_USE_OVERRIDE :=
 export ANDROID_USES_BORINGSSL := y
 export NEXUS_HDMI_INPUT_SUPPORT := y
 export NEXUS_C_STD := c99
+export NEXUS_EXPORT_FILE := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
+
