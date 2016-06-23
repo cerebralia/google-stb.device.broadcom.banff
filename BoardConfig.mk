@@ -104,7 +104,7 @@ BOARD_KERNEL_CMDLINE += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 TARGET_RECOVERY_UI_LIB := librecovery_ui_banff
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_banff
+#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_banff
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/banff
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
@@ -123,7 +123,7 @@ TARGET_BOARD_KERNEL_HEADERS := device/broadcom/banff/kernel-headers
 TARGET_RECOVERY_FSTAB := device/broadcom/banff/recovery/fstab-default/recovery.fstab
 
 # set to 'true' for clang integration.
-USE_CLANG_PLATFORM_BUILD := false
+USE_CLANG_PLATFORM_BUILD := true
 
 include device/broadcom/banff/bcm_refsw.mk
 
