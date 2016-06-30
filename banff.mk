@@ -89,7 +89,6 @@ PRODUCT_COPY_FILES += \
     device/broadcom/banff/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/broadcom/banff/init.eth.rc:root/init.eth.rc \
     device/broadcom/banff/init.recovery.bcm_platform.rc:root/init.recovery.banff.rc \
-    device/broadcom/banff/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
     device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
