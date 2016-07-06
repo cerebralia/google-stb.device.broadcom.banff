@@ -14,12 +14,6 @@
 # limitations under the License.
 #
 
-# It is required to build the Kernel from source.
-KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux
-ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
-  $(error Unable to build kernel from source, aborting.)
-endif
-
 # To prevent from including GMS twice in Google's internal source.
 ifeq ($(wildcard vendor/google/prebuilt),)
 PRODUCT_USE_PREBUILT_GMS := yes
@@ -42,9 +36,11 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-
-# Build WebView from source when using the internal source.
-override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+  # Build WebView from source when using the internal source.
+  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
+endif
 
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/banff/google_aware.xml:system/etc/permissions/google_aware.xml
@@ -52,6 +48,12 @@ endif
 
 include device/broadcom/banff/settings.mk
 include device/broadcom/banff/refsw_defs.mk
+
+# It is required to build the Kernel from source.
+KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux-${LOCAL_LINUX_VERSION}
+ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
+  $(error Unable to build kernel from source, aborting.)
+endif
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
@@ -87,6 +89,7 @@ PRODUCT_COPY_FILES += \
     device/broadcom/banff/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/broadcom/banff/init.eth.rc:root/init.eth.rc \
     device/broadcom/banff/init.recovery.bcm_platform.rc:root/init.recovery.banff.rc \
+    device/broadcom/banff/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
     device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
@@ -109,6 +112,7 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.banff.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.fs.rc:root/init.brcm_fs.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.banff.rc \
@@ -127,12 +131,25 @@ endif
 
 ifeq ($(SAGE_SUPPORT),y)
 SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
-SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
+SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES += \
     ${SAGE_BL_BINARY_PATH}/sage_bl.bin:system/bin/sage_bl.bin \
-    ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
-    ${SAGE_APP_BINARY_PATH}/sage_os_app.bin:system/bin/sage_os_app.bin \
-    ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
+    ${SAGE_APP_BINARY_PATH}/sage_framework.bin:system/bin/sage_framework.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback.bin:system/bin/sage_ta_antirollback.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_common_drm.bin:system/bin/sage_ta_common_drm.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22.bin:system/bin/sage_ta_hdcp22.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30.bin:system/bin/sage_ta_playready_30.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video.bin:system/bin/sage_ta_secure_video.bin \
+    ${SAGE_APP_BINARY_PATH}/sage_ta_utility.bin:system/bin/sage_ta_utility.bin \
+    \
+    ${SAGE_BL_BINARY_PATH}/dev/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_framework_dev.bin:system/bin/sage_framework_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_antirollback_dev.bin:system/bin/sage_ta_antirollback_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_common_drm_dev.bin:system/bin/sage_ta_common_drm_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_hdcp22_dev.bin:system/bin/sage_ta_hdcp22_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_playready_30_dev.bin:system/bin/sage_ta_playready_30_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_secure_video_dev.bin:system/bin/sage_ta_secure_video_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_utility_dev.bin:system/bin/sage_ta_utility_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -161,8 +178,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
     ro.nx.capable.si=1 \
-    ro.v3d.fence.expose=true \
-    ro.nx.svp=1
+    ro.v3d.fence.expose=true
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
@@ -194,7 +210,6 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libaudiopolicymanagerdefault \
       libaudiopolicymanager \
       BcmAdjustScreenOffset \
-      BcmCoverFlow \
       BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
@@ -236,6 +251,7 @@ endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
 
+
 PRODUCT_NAME := banff
 PRODUCT_DEVICE := banff
 PRODUCT_MODEL := banff
@@ -244,7 +260,7 @@ PRODUCT_MANUFACTURER := broadcom
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
+export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.5/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
@@ -257,7 +273,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM_bt_fw.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM_bt_fw.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default

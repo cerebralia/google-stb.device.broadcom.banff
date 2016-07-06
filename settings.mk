@@ -21,7 +21,7 @@ export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
 export B_REFSW_ARCH := arm-linux
 export B_REFSW_ARCH_1ST_ARCH := ${B_REFSW_ARCH}
-export B_REFSW_USES_CLANG := n
+export B_REFSW_USES_CLANG := y
 ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
 endif
@@ -29,6 +29,7 @@ export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/
 export P_REFSW_CC := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
+export ANDROID_PREBUILT_LIBGCC := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9/libgcc.a
 
 export B_REFSW_CCACHE := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
 export USE_CCACHE := 1
@@ -66,7 +67,6 @@ export KEYLADDER_SUPPORT=y
 export NEXUS_COMMON_CRYPTO_SUPPORT=y
 export NEXUS_HDCP_SUPPORT=y
 export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
-export SAGE_SECURE_MODE := 5
 export MSDRM_PRDY_SUPPORT=y
 export MSDRM_PRDY_SDK_VERSION=2.5
 
@@ -77,4 +77,9 @@ export NEXUS_KEYPAD_SUPPORT := n
 export BOLT_IMG_TO_USE_OVERRIDE :=
 export ANDROID_USES_BORINGSSL := y
 export NEXUS_HDMI_INPUT_SUPPORT := y
+export NEXUS_C_STD := c99
+export NEXUS_EXPORT_FILE := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
+
+export ANDROID_SUPPORTS_WIDEVINE := n
+export ANDROID_SUPPORTS_PLAYREADY := n
 

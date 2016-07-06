@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(filter arrow,$(TARGET_DEVICE)),)
+ifneq ($(filter banff,$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
@@ -22,7 +22,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := default_device.cpp
 
 # should match TARGET_RECOVERY_UI_LIB set in BoardConfig.mk
-LOCAL_MODULE := librecovery_ui_arrow
+LOCAL_MODULE := librecovery_ui_banff
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -32,7 +32,7 @@ LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := recovery_updater.c
 
 # should match TARGET_RECOVERY_UPDATER_LIBS set in BoardConfig.mk
-LOCAL_MODULE := librecovery_updater_arrow
+LOCAL_MODULE := librecovery_updater_banff
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -41,15 +41,30 @@ include $(CLEAR_VARS)
 NXMINI := $(call intermediates-dir-for,EXECUTABLES,nxmini)/nxmini
 
 EXTRA_SYSTEM_LIB_FILES := \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko
+   ${NEXUS_BIN_DIR}/bcmnexusfb.ko \
+   ${NEXUS_BIN_DIR}/nexus.ko
 
 ifeq ($(SAGE_SUPPORT),y)
+SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 EXTRA_SYSTEM_BIN_FILES := \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin \
-   $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin
+   ${SAGE_BL_BINARY_PATH}/sage_bl.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_framework.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_common_drm.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_utility.bin \
+   \
+   ${SAGE_BL_BINARY_PATH}/dev/sage_bl_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_framework_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_antirollback_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_common_drm_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_hdcp22_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_playready_30_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_secure_video_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_utility_dev.bin
 endif
 
 define copy-recovery-extra-files
@@ -69,6 +84,6 @@ recovery_bcm_libs: $(NXMINI) \
 		$(EXTRA_SYSTEM_BIN_FILES)
 	$(hide) $(call copy-recovery-extra-files)
 
-out/target/product/arrow/recovery.img : recovery_bcm_libs
+out/target/product/banff/recovery.img : recovery_bcm_libs
 
 endif
