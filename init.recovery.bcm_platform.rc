@@ -9,6 +9,7 @@ on early-init
 
 service nxmini /sbin/nxmini
     oneshot
+    seclabel u:r:nxmini:s0
 
 on property:dyn.nx.state=loaded
     insmod /system/lib/bcmnexusfb.ko

@@ -76,6 +76,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB       := lib_driver_cmd_bcmdhd
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/broadcom/banff/bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/broadcom/banff/bluetooth/vnd_banff.txt
 
 BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 

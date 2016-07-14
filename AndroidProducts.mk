@@ -15,5 +15,5 @@
 #
 
 PRODUCT_MAKEFILES := \
-   $(LOCAL_DIR)/arrow.mk \
-   $(LOCAL_DIR)/aosp_arrow.mk 
+   $(LOCAL_DIR)/banff.mk \
+   $(LOCAL_DIR)/aosp_banff.mk 
