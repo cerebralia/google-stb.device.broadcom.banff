@@ -114,6 +114,8 @@ TARGET_IS_AOSP := false
 BOARD_SEPOLICY_DIRS += device/broadcom/banff/sepolicy
 BOARD_SEPOLICY_DIRS += device/broadcom/banff/sepolicy-block
 
+BOARD_SECCOMP_POLICY += device/broadcom/banff/seccomp
+
 # using legacy audio policy.
 USE_LEGACY_AUDIO_POLICY := 0
 USE_CUSTOM_AUDIO_POLICY := 1
