@@ -99,7 +99,7 @@ BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 
 BOARD_KERNEL_CMDLINE := mem=2048m@0m
-BOARD_KERNEL_CMDLINE += bmem=528m@1512m brcm_cma=744m@768m
+BOARD_KERNEL_CMDLINE += bmem=534m@1506m brcm_cma=736m@768m
 BOARD_KERNEL_CMDLINE += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000 pmem=8m@2040m
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
