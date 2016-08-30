@@ -213,6 +213,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmTVInput \
       BcmOtaUpdater \
       BcmKeyInterceptor \
+      BcmSplash \
       camera.banff \
       gralloc.banff \
       hdmi_cec.banff \
