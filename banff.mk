@@ -200,6 +200,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmTVInput \
       BcmOtaUpdater \
       BcmKeyInterceptor \
+      BcmSpdifSetting \
       BcmSplash \
       camera.banff \
       gralloc.banff \
