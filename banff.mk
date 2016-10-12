@@ -235,12 +235,12 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libcmndrmprdy \
       libplayreadydrmplugin \
       libplayreadypk_host \
+      LiveTv \
       memtrack.banff \
       power.banff \
       pmlibserver \
       send_cec \
       tv_input.banff \
-      TV \
       TvProvider
 
   PRODUCT_PROPERTY_OVERRIDES += drm.service.enabled=true
