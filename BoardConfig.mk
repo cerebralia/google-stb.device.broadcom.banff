@@ -110,7 +110,7 @@ BOARD_KERNEL_CMDLINE += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 TARGET_RECOVERY_UI_LIB := librecovery_ui_banff
-#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_banff
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_banff
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/banff
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
