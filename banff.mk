@@ -86,6 +86,7 @@ PRODUCT_COPY_FILES += \
     device/broadcom/banff/init.broadcomstb.usb.configfs.rc:root/init.bcm_platform.usb.rc \
     device/broadcom/banff/init.eth.rc:root/init.eth.rc \
     device/broadcom/banff/init.recovery.bcm_platform.rc:root/init.recovery.banff.rc \
+    device/broadcom/banff/init.recovery.configfs.rc:root/init.recovery.configfs.rc \
     device/broadcom/banff/media_codecs.xml:system/etc/media_codecs.xml \
     device/broadcom/banff/media_profiles.xml:system/etc/media_profiles.xml \
     device/broadcom/banff/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
