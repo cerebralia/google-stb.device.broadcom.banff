@@ -14,13 +14,9 @@
 # limitations under the License.
 #
 
-export LOCAL_RUN_TARGET := aosp
 include device/broadcom/banff/banff.mk
 
-PRODUCT_NAME := aosp_banff
-PRODUCT_DEVICE := banff
-PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Google
-
-# exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
+PRODUCT_NAME                     := aosp_banff
+PRODUCT_MODEL                    := banff
+PRODUCT_BRAND                    := google
+PRODUCT_DEVICE                   := banff
