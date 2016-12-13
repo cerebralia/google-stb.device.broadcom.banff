@@ -17,4 +17,7 @@ ro.nx.capable.si=1
 
 ro.rfkilldisabled=1
 
+# google assigned client id
+ro.com.google.clientidbase=android-banff
+
 ro.nrdp.modelgroup=BANFF
