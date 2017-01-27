@@ -59,6 +59,6 @@ PRODUCT_BRAND                    := google
 PRODUCT_DEVICE                   := banff
 
 # additional setup per device.
-ADDITIONAL_DEFAULT_PROPERTIES    += ro.hardware=banff
-ADDITIONAL_DEFAULT_PROPERTIES    += ro.product.board=banff
+PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff
+PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=banff
 
