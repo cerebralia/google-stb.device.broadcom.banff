@@ -45,10 +45,10 @@ export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default.conf
 export V3D_VARIANT               := vc5
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2048m@0m
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=534m@1506m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=736m@768m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000 pmem=8m@2040m
+LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # baseline the common support.
