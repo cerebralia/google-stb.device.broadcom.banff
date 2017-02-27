@@ -22,3 +22,7 @@ ro.nx.eth.irq_mode_mask=3:2
 ro.com.google.clientidbase=android-banff
 
 ro.nrdp.modelgroup=BANFF
+
+# gfx driver versioning package.
+ro.gfx.driver.0=gfxdriver-bcmstb
+
