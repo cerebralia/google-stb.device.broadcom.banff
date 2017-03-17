@@ -51,6 +51,11 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=736m@768m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
+# *** WARNING: O-BRING-UP: no drm's.
+export ANDROID_SUPPORTS_WIDEVINE  := n
+export ANDROID_SUPPORTS_PLAYREADY := n
+# *** WARNING: O-BRING-UP: no drm's.
+
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
 PRODUCT_NAME                     := banff
