@@ -37,7 +37,7 @@ export LOCAL_DEVICE_MEDIA
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/banff/overlay
 export LOCAL_DEVICE_SEPOLICY_BLOCK := device/broadcom/banff/sepolicy-block
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/banff/aon_gpio.cfg:vendor/power/aon_gpio.cfg
-export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl
+export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/banff/reference_build.mk
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/banff/bluetooth/vnd_banff.txt
 export LOCAL_DEVICE_USERDATA     := 6137298432 # ~5.7G
@@ -66,4 +66,5 @@ PRODUCT_DEVICE                   := banff
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff
 PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=banff
+
 
