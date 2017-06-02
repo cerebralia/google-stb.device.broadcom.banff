@@ -20,10 +20,7 @@ ro.rfkilldisabled=1
 ro.nx.eth.irq_mode_mask=3:2
 
 # google assigned client id
-ro.com.google.clientidbase=android-banff
+ro.com.google.clientidbase=android-banff-tv
 
 ro.nrdp.modelgroup=BANFF
 ro.nrdp.validation=ninja_4
-
-# gfx driver versioning package.
-ro.gfx.driver.0=gfxdriver-bcmstb
