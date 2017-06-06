@@ -42,15 +42,4 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=736m@768m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
-# baseline the common support.
-$(call inherit-product, device/broadcom/common/bcm.mk)
-PRODUCT_NAME                     := banff
-PRODUCT_MODEL                    := banff
-PRODUCT_BRAND                    := google
-PRODUCT_DEVICE                   := banff
-
-# additional setup per device.
-PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff
-PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=banff
-
 
