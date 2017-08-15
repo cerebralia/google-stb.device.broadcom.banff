@@ -16,6 +16,7 @@ include device/broadcom/banff/common.mk
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
+$(call inherit-product, build/make/target/product/product_launched_with_m.mk)
 PRODUCT_NAME                     := banff
 PRODUCT_MODEL                    := banff
 PRODUCT_BRAND                    := google
