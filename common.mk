@@ -36,10 +36,10 @@ export LOCAL_DEVICE_USERDATA     := 6137298432 # ~5.7G
 export V3D_VARIANT               := vc5
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=534m@1506m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=736m@768m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=544m@1464m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=696m@768m
+LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 
