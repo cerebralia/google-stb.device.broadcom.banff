@@ -26,5 +26,5 @@ PRODUCT_DEVICE                   := banff_nvi
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff_nvi
-PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=banff_nvi
+TARGET_BOOTLOADER_BOARD_NAME := banff_nvi
 
