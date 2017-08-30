@@ -24,5 +24,5 @@ PRODUCT_DEVICE                   := banff
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff
-PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=banff
+TARGET_BOOTLOADER_BOARD_NAME := banff
 
