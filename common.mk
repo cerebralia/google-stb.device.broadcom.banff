@@ -37,8 +37,8 @@ export V3D_VARIANT               := vc5
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=544m@1464m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=696m@768m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=544m@416m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=560m@972m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
