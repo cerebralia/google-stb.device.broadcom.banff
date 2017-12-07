@@ -1,7 +1,7 @@
 export ANDROID_PRODUCT_OUT       := banff
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.default:root/fstab.banff
-LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.default:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.default.early:root/fstab.banff
+LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.default.early:root/fstab.bcm
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default.conf
