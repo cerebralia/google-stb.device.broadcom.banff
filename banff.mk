@@ -1,4 +1,4 @@
-export ANDROID_PRODUCT_OUT       := banff
+export LOCAL_PRODUCT_OUT       := banff
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.default.early:root/fstab.banff
 LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.default.early:root/fstab.bcm
