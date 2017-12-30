@@ -50,4 +50,6 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=560m@972m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
+export LOCAL_DEVICE_RTS_MODE     := 1
+
 
