@@ -2,14 +2,14 @@
 export LOCAL_NVI_LAYOUT          := y
 export LOCAL_PRODUCT_OUT       := banff_nvi
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.nvi.default:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.banff_nvi
-LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.nvi.default:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
+LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.nvi.default:root/fstab.banff_nvi
+LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.nvi.default:root/fstab.bcm
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default.nvi.conf
 
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.banff_nvi.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.nvi.rc:root/init.banff_nvi.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.banff_nvi.rc
 
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.banff_nvi.rc
 
