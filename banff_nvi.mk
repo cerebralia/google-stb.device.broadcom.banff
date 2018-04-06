@@ -8,7 +8,7 @@ export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default.nvi.conf
 
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.banff_nvi.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.nvi.rc:root/init.banff_nvi.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.banff_nvi.rc
 
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.banff_nvi.rc

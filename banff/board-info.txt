@@ -1,2 +1,2 @@
 require board=banff
-require version-bootloader=v1.40-239-ge5913ab
+
