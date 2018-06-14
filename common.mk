@@ -52,7 +52,7 @@ export LOCAL_DEVICE_AON_GPIO     := device/broadcom/banff/aon_gpio.cfg:$(TARGET_
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/banff/reference_build.mk
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/banff/bluetooth/vnd_banff.txt
-export LOCAL_DEVICE_USERDATA     := 6137298432 # ~5.7G
+export LOCAL_DEVICE_USERDATA     := 5583650304 # ~5.2G
 export V3D_VARIANT               := vc5
 
 # kernel command line.
