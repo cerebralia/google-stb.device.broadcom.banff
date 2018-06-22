@@ -54,6 +54,7 @@ export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/banff/reference_build.mk
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/banff/bluetooth/vnd_banff.txt
 export LOCAL_DEVICE_USERDATA     := 5386518016 # ~5.0G
 export V3D_VARIANT               := vc5
+export LOCAL_DEVICE_PAK_BINARY   := pak.7251s.zd.bin
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
