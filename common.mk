@@ -66,3 +66,6 @@ export LOCAL_DEVICE_KERNEL_CMDLINE
 export LOCAL_DEVICE_RTS_MODE     := 1
 
 export HW_ENCODER_SUPPORT        := n
+
+# Netflix support
+export LOCAL_DEVICE_NRDP_MODEL_GROUP := BANFF

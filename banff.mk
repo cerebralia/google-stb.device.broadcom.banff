@@ -50,9 +50,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.eth.irq_mode_mask=3:2 \
    \
    ro.com.google.clientidbase=android-banff-tv \
-   ro.nrdp.modelgroup=BANFF \
-   ro.nrdp.validation=ninja_5.1 \
    ro.nx.hwc2.tweak.force_eotf=0
 
 TARGET_BOOTLOADER_BOARD_NAME := banff
-
