@@ -12,11 +12,7 @@ export BCM_DIST_FORCED_BINDIST   := y
 
 # compile the rc's for the device.
 ifneq ($(LOCAL_NVI_LAYOUT),y)
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
-else
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
-endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.default.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fs.rc  # NOT verity
 LOCAL_DEVICE_RCS                 += device/broadcom/banff/rcs/init.block.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.block.rc     # block devices
 LOCAL_DEVICE_RCS                 += device/broadcom/banff/rcs/init.bcm.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bcm.usb.rc # uses 'configfs'
@@ -44,9 +40,7 @@ export LOCAL_DEVICE_MEDIA
 # optional device override/addition.
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/banff/overlay
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/banff/sepolicy/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/banff/sepolicy/treble
-endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/banff/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
