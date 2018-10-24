@@ -3,6 +3,7 @@ export NEXUS_PLATFORM            := 97439
 export BCHP_VER                  := B0
 export NEXUS_USE_7439_SFF        := y
 export PLATFORM                  := 97439
+export TARGET_SAGE_PLATFORM      := avko
 
 # binary distribution
 export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/banff
