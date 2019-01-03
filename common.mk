@@ -63,3 +63,6 @@ export LOCAL_DEVICE_RTS_MODE     := 1
 export HW_ENCODER_SUPPORT        := n
 
 export LOCAL_DEVICE_MEDIA_SW_AVC_1080P := y
+
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.drm.wv.plugin_rt=1
