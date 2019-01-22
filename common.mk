@@ -65,4 +65,5 @@ export HW_ENCODER_SUPPORT        := n
 export LOCAL_DEVICE_MEDIA_SW_AVC_1080P := y
 
 PRODUCT_PROPERTY_OVERRIDES += \
+   persist.nx.audio_buffer_duration=20 \
    ro.drm.wv.plugin_rt=1
