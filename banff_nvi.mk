@@ -5,8 +5,6 @@ export LOCAL_PRODUCT_OUT       := banff_nvi
 endif
 
 export LOCAL_FULL_TREBLE_NOT_COMPATIBLE := y
-PRODUCT_TREBLE_LINKER_NAMESPACES := false
-PRODUCT_USE_VNDK_OVERRIDE        := false
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.nvi.default:root/fstab.banff_nvi
 LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.nvi.default:root/fstab.bcm
@@ -33,5 +31,6 @@ PRODUCT_DEVICE                   := banff_nvi
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=banff_nvi
 TARGET_BOOTLOADER_BOARD_NAME := banff_nvi
-PRODUCT_PACKAGES += sepolicy
 
+# including special configuration for nvi target.
+include device/broadcom/common/nvi.mk
